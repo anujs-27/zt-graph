@@ -1,12 +1,16 @@
 use crate::lattice::labels::SecurityLabel;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SecurityZone {
     pub id: String,
     pub cidr: String,
     pub label: SecurityLabel,
+    pub is_proxy: bool,
 }
 
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct InitiationEdge {
     pub from: usize,
     pub to: usize,
@@ -22,8 +26,13 @@ pub struct TopologyGraph {
 }
 
 impl SecurityZone {
-    pub fn new(id: String, cidr: String, label: SecurityLabel) -> Self {
-        SecurityZone { id, cidr, label }
+    pub fn new(id: String, cidr: String, label: SecurityLabel, is_proxy: bool) -> Self {
+        SecurityZone {
+            id,
+            cidr,
+            label,
+            is_proxy,
+        }
     }
 }
 
@@ -60,6 +69,10 @@ impl TopologyGraph {
         // Validate that both nodes exist in the graph
         if from >= self.zones.len() || to >= self.zones.len() {
             return Err("ERROR: Zone index out of bounds!");
+        }
+
+        if from == to {
+            return Err("ERROR: Self-loops are not allowed");
         }
 
         let edge: InitiationEdge = InitiationEdge {

@@ -82,14 +82,10 @@ pub fn audit_lattice_reachability(
             if i == j {
                 continue;
             }
-            let label_u = &topo
-                .get_zone(i)
-                .expect("ERROR: Couldn't find the zone")
-                .label;
-            let label_v = &topo
-                .get_zone(j)
-                .expect("ERROR: Couldn't find the zone")
-                .label;
+
+            let label_u = &topo.zones[i].label;
+            let label_v = &topo.zones[j].label;
+
             if closure.is_reachable(i, j) && !flows_to(label_u, label_v) {
                 reachables.push((i, j));
             }
@@ -99,8 +95,50 @@ pub fn audit_lattice_reachability(
     reachables
 }
 
-/*
-    TODO: Replace Warshall's algorithm with a targeted BFS for blast-radius calculation.
-    Note: Warshall's is currently used to satisfy assignment rubric constraints (all-pairs reachability),
-    but its O(V^3) time complexity is inefficient for large dependency graphs. - 2026-09-25
-*/
+pub fn audit_unmediated_flow(topo: &TopologyGraph) -> Vec<(usize, usize)> {
+    let mut violating_edges: Vec<(usize, usize)> = Vec::new();
+    let n = topo.zone_count();
+
+    for u in 0..n {
+        let mut visited = vec![false; n];
+        let mut queue = std::collections::VecDeque::new();
+        visited[u] = true;
+        queue.push_back(u);
+
+        while let Some(curr) = queue.pop_front() {
+            for edge in &topo.adjacency[curr] {
+                let v = edge.to;
+                if visited[v] {
+                    continue;
+                }
+                visited[v] = true;
+
+                let zone_u = &topo.zones[u];
+                let zone_v = &topo.zones[v];
+
+                // Only inspect paths that flow legally but might skip a tier
+                if flows_to(&zone_u.label, &zone_v.label) {
+                    let multi_tier_leap = zone_u.label != zone_v.label
+                        && !crate::lattice::poset::is_covered_by_assumes_flow(
+                            &zone_v.label,
+                            &zone_u.label,
+                        );
+
+                    let unmediated = !zone_u.is_proxy && !zone_v.is_proxy;
+
+                    if multi_tier_leap && unmediated {
+                        violating_edges.push((u, v));
+                    }
+                }
+
+                // If v is a proxy, it mediates any further downstream leaps along this path.
+                // We only continue exploring if it's NOT a proxy.
+                if !zone_v.is_proxy {
+                    queue.push_back(v);
+                }
+            }
+        }
+    }
+
+    violating_edges
+}

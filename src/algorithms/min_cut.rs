@@ -13,14 +13,26 @@ pub struct CutResult {
 }
 
 impl FlowNetwork {
-    /// Computes the maximum flow from source `s` to sink `t` using the Edmonds-Karp algorithm.
     pub fn max_flow_engine(&mut self, s: usize, t: usize) -> u64 {
+        if s == t {
+            return 0;
+        }
+        if s >= self.adj.len() || t >= self.adj.len() {
+            return 0;
+        }
+
+        self.reset_flows();
+
         let mut max_flow = 0u64;
+        let n: usize = self.adj.len();
+        let mut parent: Vec<Option<(usize, usize)>> = vec![None; n];
+        let mut visited = vec![false; n];
+        let mut queue: VecDeque<usize> = VecDeque::with_capacity(n);
 
         loop {
-            let mut parent: Vec<Option<(usize, usize)>> = vec![None; self.adj.len()];
-            let mut visited = vec![false; self.adj.len()];
-            let mut queue: VecDeque<usize> = VecDeque::new();
+            parent.fill(None);
+            visited.fill(false);
+            queue.clear();
 
             visited[s] = true;
             queue.push_back(s);
@@ -37,7 +49,7 @@ impl FlowNetwork {
                 for i in 0..self.adj[u].len() {
                     let edge = &self.adj[u][i];
 
-                    let residual_capacity = if edge.capacity > 0 {
+                    let residual_capacity = if edge.original_flow_index.is_some() {
                         edge.capacity - edge.flow
                     } else {
                         self.adj[edge.to][edge.rev].flow
@@ -62,7 +74,7 @@ impl FlowNetwork {
             while curr != s {
                 if let Some((u, i)) = parent[curr] {
                     let edge = &self.adj[u][i];
-                    let residual_capacity = if edge.capacity > 0 {
+                    let residual_capacity = if edge.original_flow_index.is_some() {
                         edge.capacity - edge.flow
                     } else {
                         self.adj[edge.to][edge.rev].flow
@@ -82,7 +94,7 @@ impl FlowNetwork {
                     let rev_idx = edge.rev;
                     let to = edge.to;
 
-                    if edge.capacity > 0 {
+                    if edge.original_flow_index.is_some() {
                         self.adj[u][i].flow += path_flow;
                     } else {
                         self.adj[to][rev_idx].flow -= path_flow;
@@ -100,25 +112,39 @@ impl FlowNetwork {
         max_flow
     }
 
-    /// Computes the minimum cut partition boundary after running max flow.
     pub fn compute_min_cut(
         &mut self,
         s: usize,
         t: usize,
     ) -> Result<CutResult, ArchitecturalInvariantBreach> {
+        if s == t {
+            return Err(ArchitecturalInvariantBreach::Message(
+                "Source and sink cannot be identical".into(),
+            ));
+        }
+        if s >= self.adj.len() || t >= self.adj.len() {
+            return Err(ArchitecturalInvariantBreach::Message(format!(
+                "Invalid node index: source {} or sink {} out of bounds (max {})",
+                s,
+                t,
+                self.adj.len() - 1
+            )));
+        }
+
         // Run max flow engine first to saturate the network
         self.max_flow_engine(s, t);
 
         // Run BFS on the residual graph starting from s to find all reachable vertices (Set S)
-        let mut visited = vec![false; self.adj.len()];
-        let mut queue = VecDeque::new();
+        let n: usize = self.adj.len();
+        let mut visited = vec![false; n];
+        let mut queue = VecDeque::with_capacity(n);
 
         visited[s] = true;
         queue.push_back(s);
 
         while let Some(u) = queue.pop_front() {
             for edge in &self.adj[u] {
-                let residual_capacity = if edge.capacity > 0 {
+                let residual_capacity = if edge.original_flow_index.is_some() {
                     edge.capacity - edge.flow
                 } else {
                     self.adj[edge.to][edge.rev].flow
@@ -131,13 +157,6 @@ impl FlowNetwork {
             }
         }
 
-        if visited[t] {
-            return Err(ArchitecturalInvariantBreach::Message(format!(
-                "Architectural deadlock: Sink {} remains reachable from source {} in the residual graph, indicating un-severable infrastructure paths.",
-                t, s
-            )));
-        }
-
         let mut cut_edges = Vec::new();
         let mut total_capacity = 0u64;
 
@@ -146,11 +165,11 @@ impl FlowNetwork {
             if visited[u] {
                 for edge in &self.adj[u] {
                     if !visited[edge.to] {
-                        if edge.capacity > 0 {
+                        if edge.original_flow_index.is_some() {
                             // Check architectural invariants for cut boundaries
-                            if edge.is_infrastructure || edge.capacity == u64::MAX {
+                            if edge.capacity == u64::MAX {
                                 return Err(ArchitecturalInvariantBreach::Message(format!(
-                                    "Invariant breach: cut crosses critical infrastructure or infinite capacity edge from {} to {}",
+                                    "Invariant breach: cut crosses infinite capacity edge from {} to {}",
                                     u, edge.to
                                 )));
                             }

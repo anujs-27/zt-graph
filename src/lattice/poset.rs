@@ -1,6 +1,4 @@
-use std::collections::BTreeSet;
-
-use crate::lattice::labels::SecurityLabel;
+use crate::lattice::labels::{Clearance, SecurityLabel};
 
 pub fn flows_to(source: &SecurityLabel, target: &SecurityLabel) -> bool {
     source.clearance <= target.clearance && source.compartments.is_subset(&target.compartments)
@@ -10,25 +8,30 @@ pub fn is_incomparable(a: &SecurityLabel, b: &SecurityLabel) -> bool {
     !flows_to(a, b) && !flows_to(b, a)
 }
 
-pub fn least_upper_bound(a: &SecurityLabel, b: &SecurityLabel) -> SecurityLabel {
-    let clearance = std::cmp::max(a.clearance, b.clearance);
-    let union: BTreeSet<String> = a.compartments.union(&b.compartments).cloned().collect();
-    SecurityLabel {
-        clearance,
-        compartments: union,
-    }
+fn is_immediate_successor(a: Clearance, b: Clearance) -> bool {
+    (a as usize) + 1 == (b as usize)
 }
 
-pub fn greatest_lower_bound(a: &SecurityLabel, b: &SecurityLabel) -> SecurityLabel {
-    let clearance = std::cmp::min(a.clearance, b.clearance);
-    let intersection: BTreeSet<String> = a
-        .compartments
-        .intersection(&b.compartments)
-        .cloned()
-        .collect();
-
-    SecurityLabel {
-        clearance,
-        compartments: intersection,
+pub fn is_covered_by_assumes_flow(upper: &SecurityLabel, lower: &SecurityLabel) -> bool {
+    if lower == upper {
+        return false;
     }
+
+    if lower.clearance == upper.clearance
+        && upper.compartments.len() == lower.compartments.len() + 1
+    {
+        return true;
+    }
+
+    if lower.compartments == upper.compartments
+        && is_immediate_successor(lower.clearance, upper.clearance)
+    {
+        return true;
+    }
+
+    false
+}
+
+pub fn is_covered_by(upper: &SecurityLabel, lower: &SecurityLabel) -> bool {
+    flows_to(lower, upper) && is_covered_by_assumes_flow(upper, lower)
 }

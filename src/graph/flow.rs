@@ -8,7 +8,6 @@ pub struct FlowEdge {
     pub rev: usize,
     pub capacity: u64,
     pub flow: u64,
-    pub is_infrastructure: bool,
     pub original_flow_index: Option<(usize, usize)>, // (from, edge_index_adjacency in TopologyGraph)
 }
 
@@ -28,7 +27,6 @@ impl FlowNetwork {
         from: usize,
         to: usize,
         cap: u64,
-        is_infra: bool,
         orig_index: Option<(usize, usize)>,
     ) {
         let forward_idx = self.adj[from].len();
@@ -39,7 +37,6 @@ impl FlowNetwork {
             rev: backward_idx,
             capacity: cap,
             flow: 0,
-            is_infrastructure: is_infra,
             original_flow_index: orig_index,
         };
 
@@ -48,12 +45,19 @@ impl FlowNetwork {
             rev: forward_idx,
             capacity: 0,
             flow: 0,
-            is_infrastructure: is_infra,
             original_flow_index: None, // Residual edge
         };
 
         self.adj[from].push(forward);
         self.adj[to].push(backward);
+    }
+
+    pub fn reset_flows(&mut self) {
+        for edges in &mut self.adj {
+            for edge in edges {
+                edge.flow = 0;
+            }
+        }
     }
 }
 
@@ -72,7 +76,7 @@ impl FlowNetwork {
 
                 let orig_index = Some((from_idx, edge_idx));
 
-                net.add_edge(from_idx, edge.to, cap, edge.is_infrastructure, orig_index);
+                net.add_edge(from_idx, edge.to, cap, orig_index);
             }
         }
 
