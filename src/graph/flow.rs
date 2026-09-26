@@ -30,7 +30,11 @@ impl FlowNetwork {
         orig_index: Option<(usize, usize)>,
     ) {
         let forward_idx = self.adj[from].len();
-        let backward_idx = self.adj[to].len();
+        let backward_idx = if from == to {
+            forward_idx + 1
+        } else {
+            self.adj[to].len()
+        };
 
         let forward = FlowEdge {
             to,

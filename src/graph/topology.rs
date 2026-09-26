@@ -1,11 +1,12 @@
 use crate::lattice::labels::SecurityLabel;
+use ipnet::IpNet;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SecurityZone {
     pub id: String,
-    pub cidr: String,
+    pub cidr: IpNet,
     pub label: SecurityLabel,
     pub is_proxy: bool,
 }
@@ -19,6 +20,7 @@ pub struct InitiationEdge {
     pub is_infrastructure: bool,
 }
 
+#[derive(Debug)]
 pub struct TopologyGraph {
     pub zones: Vec<SecurityZone>,
     pub node_index_map: HashMap<String, usize>,
@@ -26,7 +28,7 @@ pub struct TopologyGraph {
 }
 
 impl SecurityZone {
-    pub fn new(id: String, cidr: String, label: SecurityLabel, is_proxy: bool) -> Self {
+    pub fn new(id: String, cidr: IpNet, label: SecurityLabel, is_proxy: bool) -> Self {
         SecurityZone {
             id,
             cidr,
@@ -73,6 +75,10 @@ impl TopologyGraph {
 
         if from == to {
             return Err("ERROR: Self-loops are not allowed");
+        }
+
+        if !is_infra && capacity == u64::MAX {
+            return Err("ERROR: Non-infrastructure edge cannot have infinite capacity (u64::MAX)");
         }
 
         let edge: InitiationEdge = InitiationEdge {
