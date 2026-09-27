@@ -1,0 +1,996 @@
+{
+    "zones": [
+        {
+            "id": "Z000",
+            "cidr": "10.50.0.0/24",
+            "clearance": "Public",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": true
+        },
+        {
+            "id": "Z001",
+            "cidr": "10.50.1.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z002",
+            "cidr": "10.50.2.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z003",
+            "cidr": "10.50.3.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z004",
+            "cidr": "10.50.4.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z005",
+            "cidr": "10.50.5.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z006",
+            "cidr": "10.50.6.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z007",
+            "cidr": "10.50.7.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z008",
+            "cidr": "10.50.8.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z009",
+            "cidr": "10.50.9.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z010",
+            "cidr": "10.50.10.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z011",
+            "cidr": "10.50.11.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z012",
+            "cidr": "10.50.12.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z013",
+            "cidr": "10.50.13.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z014",
+            "cidr": "10.50.14.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z015",
+            "cidr": "10.50.15.0/24",
+            "clearance": "Public",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z016",
+            "cidr": "10.50.16.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z017",
+            "cidr": "10.50.17.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z018",
+            "cidr": "10.50.18.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z019",
+            "cidr": "10.50.19.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z020",
+            "cidr": "10.50.20.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z021",
+            "cidr": "10.50.21.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z022",
+            "cidr": "10.50.22.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z023",
+            "cidr": "10.50.23.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z024",
+            "cidr": "10.50.24.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z025",
+            "cidr": "10.50.25.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z026",
+            "cidr": "10.50.26.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z027",
+            "cidr": "10.50.27.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z028",
+            "cidr": "10.50.28.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z029",
+            "cidr": "10.50.29.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z030",
+            "cidr": "10.50.30.0/24",
+            "clearance": "Public",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z031",
+            "cidr": "10.50.31.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z032",
+            "cidr": "10.50.32.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z033",
+            "cidr": "10.50.33.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z034",
+            "cidr": "10.50.34.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z035",
+            "cidr": "10.50.35.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": true
+        },
+        {
+            "id": "Z036",
+            "cidr": "10.50.36.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z037",
+            "cidr": "10.50.37.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z038",
+            "cidr": "10.50.38.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z039",
+            "cidr": "10.50.39.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z040",
+            "cidr": "10.50.40.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z041",
+            "cidr": "10.50.41.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z042",
+            "cidr": "10.50.42.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z043",
+            "cidr": "10.50.43.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z044",
+            "cidr": "10.50.44.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z045",
+            "cidr": "10.50.45.0/24",
+            "clearance": "Public",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z046",
+            "cidr": "10.50.46.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z047",
+            "cidr": "10.50.47.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z048",
+            "cidr": "10.50.48.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z049",
+            "cidr": "10.50.49.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z050",
+            "cidr": "10.50.50.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z051",
+            "cidr": "10.50.51.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z052",
+            "cidr": "10.50.52.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z053",
+            "cidr": "10.50.53.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z054",
+            "cidr": "10.50.54.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z055",
+            "cidr": "10.50.55.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Z056",
+            "cidr": "10.50.56.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Z057",
+            "cidr": "10.50.57.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z058",
+            "cidr": "10.50.58.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Z059",
+            "cidr": "10.50.59.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "Z000",
+            "to": "Z001",
+            "port": 5000,
+            "capacity": 82,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z001",
+            "to": "Z002",
+            "port": 5001,
+            "capacity": 15,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z002",
+            "to": "Z003",
+            "port": 5002,
+            "capacity": 4,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z003",
+            "to": "Z004",
+            "port": 5003,
+            "capacity": 95,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z004",
+            "to": "Z005",
+            "port": 5004,
+            "capacity": 36,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z005",
+            "to": "Z006",
+            "port": 5005,
+            "capacity": 32,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z006",
+            "to": "Z007",
+            "port": 5006,
+            "capacity": 29,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z007",
+            "to": "Z008",
+            "port": 5007,
+            "capacity": 18,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z008",
+            "to": "Z009",
+            "port": 5008,
+            "capacity": 95,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z009",
+            "to": "Z010",
+            "port": 5009,
+            "capacity": 14,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z010",
+            "to": "Z011",
+            "port": 5010,
+            "capacity": 87,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z011",
+            "to": "Z012",
+            "port": 5011,
+            "capacity": 95,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z012",
+            "to": "Z013",
+            "port": 5012,
+            "capacity": 70,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z013",
+            "to": "Z014",
+            "port": 5013,
+            "capacity": 12,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z014",
+            "to": "Z015",
+            "port": 5014,
+            "capacity": 76,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z015",
+            "to": "Z016",
+            "port": 5015,
+            "capacity": 55,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z016",
+            "to": "Z017",
+            "port": 5016,
+            "capacity": 5,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z017",
+            "to": "Z018",
+            "port": 5017,
+            "capacity": 4,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z018",
+            "to": "Z019",
+            "port": 5018,
+            "capacity": 12,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z019",
+            "to": "Z020",
+            "port": 5019,
+            "capacity": 28,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z020",
+            "to": "Z021",
+            "port": 5020,
+            "capacity": 30,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z021",
+            "to": "Z022",
+            "port": 5021,
+            "capacity": 65,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z022",
+            "to": "Z023",
+            "port": 5022,
+            "capacity": 78,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z023",
+            "to": "Z024",
+            "port": 5023,
+            "capacity": 4,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z024",
+            "to": "Z025",
+            "port": 5024,
+            "capacity": 72,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z025",
+            "to": "Z026",
+            "port": 5025,
+            "capacity": 26,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z026",
+            "to": "Z027",
+            "port": 5026,
+            "capacity": 92,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z027",
+            "to": "Z028",
+            "port": 5027,
+            "capacity": 84,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z028",
+            "to": "Z029",
+            "port": 5028,
+            "capacity": 90,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z029",
+            "to": "Z030",
+            "port": 5029,
+            "capacity": 70,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z030",
+            "to": "Z031",
+            "port": 5030,
+            "capacity": 54,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z031",
+            "to": "Z032",
+            "port": 5031,
+            "capacity": 29,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z032",
+            "to": "Z033",
+            "port": 5032,
+            "capacity": 58,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z033",
+            "to": "Z034",
+            "port": 5033,
+            "capacity": 76,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z034",
+            "to": "Z035",
+            "port": 5034,
+            "capacity": 36,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z035",
+            "to": "Z036",
+            "port": 5035,
+            "capacity": 1,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z036",
+            "to": "Z037",
+            "port": 5036,
+            "capacity": 98,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z037",
+            "to": "Z038",
+            "port": 5037,
+            "capacity": 21,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z038",
+            "to": "Z039",
+            "port": 5038,
+            "capacity": 90,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z039",
+            "to": "Z040",
+            "port": 5039,
+            "capacity": 55,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z040",
+            "to": "Z041",
+            "port": 5040,
+            "capacity": 44,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z041",
+            "to": "Z042",
+            "port": 5041,
+            "capacity": 36,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z042",
+            "to": "Z043",
+            "port": 5042,
+            "capacity": 20,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z043",
+            "to": "Z044",
+            "port": 5043,
+            "capacity": 28,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z044",
+            "to": "Z045",
+            "port": 5044,
+            "capacity": 98,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z045",
+            "to": "Z046",
+            "port": 5045,
+            "capacity": 44,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z046",
+            "to": "Z047",
+            "port": 5046,
+            "capacity": 14,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z047",
+            "to": "Z048",
+            "port": 5047,
+            "capacity": 12,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z048",
+            "to": "Z049",
+            "port": 5048,
+            "capacity": 49,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z049",
+            "to": "Z050",
+            "port": 5049,
+            "capacity": 13,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z050",
+            "to": "Z051",
+            "port": 5050,
+            "capacity": 46,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z051",
+            "to": "Z052",
+            "port": 5051,
+            "capacity": 45,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z052",
+            "to": "Z053",
+            "port": 5052,
+            "capacity": 78,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z053",
+            "to": "Z054",
+            "port": 5053,
+            "capacity": 34,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z054",
+            "to": "Z055",
+            "port": 5054,
+            "capacity": 6,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z055",
+            "to": "Z056",
+            "port": 5055,
+            "capacity": 94,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z056",
+            "to": "Z057",
+            "port": 5056,
+            "capacity": 59,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z057",
+            "to": "Z058",
+            "port": 5057,
+            "capacity": 69,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z058",
+            "to": "Z059",
+            "port": 5058,
+            "capacity": 16,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z000",
+            "to": "Z003",
+            "port": 9000,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Z011",
+            "to": "Z014",
+            "port": 9011,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Z022",
+            "to": "Z025",
+            "port": 9022,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Z033",
+            "to": "Z036",
+            "port": 9033,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Z044",
+            "to": "Z047",
+            "port": 9044,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Z055",
+            "to": "Z058",
+            "port": 9055,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Z000",
+            "to": "Z002",
+            "port": 8001,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z002",
+            "to": "Z004",
+            "port": 8002,
+            "capacity": 18446744073709551614,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z000",
+            "to": "Z005",
+            "port": 7000,
+            "capacity": 25,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z005",
+            "to": "Z010",
+            "port": 7005,
+            "capacity": 6,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z010",
+            "to": "Z015",
+            "port": 7010,
+            "capacity": 36,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z015",
+            "to": "Z020",
+            "port": 7015,
+            "capacity": 19,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z020",
+            "to": "Z025",
+            "port": 7020,
+            "capacity": 41,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z025",
+            "to": "Z030",
+            "port": 7025,
+            "capacity": 40,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z030",
+            "to": "Z035",
+            "port": 7030,
+            "capacity": 24,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z035",
+            "to": "Z040",
+            "port": 7035,
+            "capacity": 37,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z040",
+            "to": "Z045",
+            "port": 7040,
+            "capacity": 13,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z045",
+            "to": "Z050",
+            "port": 7045,
+            "capacity": 46,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Z050",
+            "to": "Z055",
+            "port": 7050,
+            "capacity": 5,
+            "is_infrastructure": false
+        }
+    ]
+}

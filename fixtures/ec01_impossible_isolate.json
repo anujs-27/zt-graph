@@ -1,0 +1,19 @@
+{
+    "zones": [
+        {
+            "id": "Island_A",
+            "cidr": "10.1.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Island_B",
+            "cidr": "10.2.0.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": []
+}

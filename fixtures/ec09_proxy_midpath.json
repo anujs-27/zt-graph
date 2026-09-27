@@ -1,0 +1,41 @@
+{
+    "zones": [
+        {
+            "id": "Origin",
+            "cidr": "10.9.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Gateway",
+            "cidr": "10.9.1.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Vault",
+            "cidr": "10.9.2.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "Origin",
+            "to": "Gateway",
+            "port": 443,
+            "capacity": 20,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Gateway",
+            "to": "Vault",
+            "port": 5432,
+            "capacity": 20,
+            "is_infrastructure": false
+        }
+    ]
+}

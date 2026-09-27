@@ -1,0 +1,34 @@
+{
+    "zones": [
+        {
+            "id": "A",
+            "cidr": "10.8.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "B",
+            "cidr": "10.8.1.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "A",
+            "to": "B",
+            "port": 100,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "A",
+            "to": "B",
+            "port": 200,
+            "capacity": 15,
+            "is_infrastructure": false
+        }
+    ]
+}

@@ -1,0 +1,426 @@
+{
+    "zones": [
+        {
+            "id": "Student_WiFi",
+            "cidr": "10.1.0.0/16",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Guest_WiFi",
+            "cidr": "10.2.0.0/16",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Faculty_Workstations",
+            "cidr": "10.10.0.0/16",
+            "clearance": "Restricted",
+            "compartments": [
+                "Academics"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Admin_Workstations",
+            "cidr": "10.11.0.0/16",
+            "clearance": "Restricted",
+            "compartments": [
+                "Administration"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Finance_Dept",
+            "cidr": "10.12.0.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Finance"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Library_Systems",
+            "cidr": "10.13.0.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Academics"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Research_Lab_CS",
+            "cidr": "10.20.1.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Academics",
+                "Research"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Research_Lab_Bio",
+            "cidr": "10.20.2.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Academics",
+                "Research"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Exam_Server",
+            "cidr": "10.30.0.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Academics"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Student_Records_DB",
+            "cidr": "10.30.1.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Administration"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Payroll_DB",
+            "cidr": "10.30.2.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Finance"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "DMZ_Web_Proxy",
+            "cidr": "172.16.0.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Academics",
+                "Administration"
+            ],
+            "is_proxy": true
+        },
+        {
+            "id": "Core_DNS",
+            "cidr": "10.254.0.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Academics",
+                "Administration",
+                "Finance"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Core_Gateway",
+            "cidr": "10.254.1.0/24",
+            "clearance": "Restricted",
+            "compartments": [
+                "Academics",
+                "Administration",
+                "Finance"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "CCTV_IoT",
+            "cidr": "10.50.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "HVAC_BMS",
+            "cidr": "10.50.1.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Backup_Vault",
+            "cidr": "10.99.0.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Academics",
+                "Administration",
+                "Finance"
+            ],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "Student_WiFi",
+            "to": "Core_DNS",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Student_WiFi",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Guest_WiFi",
+            "to": "Core_DNS",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Guest_WiFi",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Student_WiFi",
+            "to": "DMZ_Web_Proxy",
+            "port": 8080,
+            "capacity": 50,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Student_WiFi",
+            "to": "Library_Systems",
+            "port": 443,
+            "capacity": 30,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Guest_WiFi",
+            "to": "DMZ_Web_Proxy",
+            "port": 8080,
+            "capacity": 20,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "Core_DNS",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "DMZ_Web_Proxy",
+            "port": 8080,
+            "capacity": 40,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "Library_Systems",
+            "port": 443,
+            "capacity": 25,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "Exam_Server",
+            "port": 443,
+            "capacity": 15,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "Research_Lab_CS",
+            "port": 22,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Faculty_Workstations",
+            "to": "Research_Lab_Bio",
+            "port": 22,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Admin_Workstations",
+            "to": "Core_DNS",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Admin_Workstations",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Admin_Workstations",
+            "to": "Student_Records_DB",
+            "port": 5432,
+            "capacity": 20,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Admin_Workstations",
+            "to": "DMZ_Web_Proxy",
+            "port": 8080,
+            "capacity": 30,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Finance_Dept",
+            "to": "Core_DNS",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Finance_Dept",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Finance_Dept",
+            "to": "Payroll_DB",
+            "port": 1433,
+            "capacity": 15,
+            "is_infrastructure": false
+        },
+        {
+            "from": "DMZ_Web_Proxy",
+            "to": "Exam_Server",
+            "port": 443,
+            "capacity": 35,
+            "is_infrastructure": false
+        },
+        {
+            "from": "DMZ_Web_Proxy",
+            "to": "Student_Records_DB",
+            "port": 5432,
+            "capacity": 25,
+            "is_infrastructure": false
+        },
+        {
+            "from": "DMZ_Web_Proxy",
+            "to": "Library_Systems",
+            "port": 443,
+            "capacity": 40,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Library_Systems",
+            "to": "Research_Lab_CS",
+            "port": 443,
+            "capacity": 20,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Library_Systems",
+            "to": "Research_Lab_Bio",
+            "port": 443,
+            "capacity": 20,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Core_Gateway",
+            "to": "DMZ_Web_Proxy",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Core_DNS",
+            "to": "Core_Gateway",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Core_Gateway",
+            "to": "Core_DNS",
+            "port": 53,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Exam_Server",
+            "to": "Backup_Vault",
+            "port": 873,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Student_Records_DB",
+            "to": "Backup_Vault",
+            "port": 873,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Payroll_DB",
+            "to": "Backup_Vault",
+            "port": 873,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "CCTV_IoT",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "HVAC_BMS",
+            "to": "Core_Gateway",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Student_WiFi",
+            "to": "Admin_Workstations",
+            "port": 445,
+            "capacity": 5,
+            "is_infrastructure": false
+        },
+        {
+            "from": "CCTV_IoT",
+            "to": "Admin_Workstations",
+            "port": 80,
+            "capacity": 8,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Guest_WiFi",
+            "to": "Finance_Dept",
+            "port": 445,
+            "capacity": 3,
+            "is_infrastructure": false
+        },
+        {
+            "from": "HVAC_BMS",
+            "to": "Student_WiFi",
+            "port": 502,
+            "capacity": 5,
+            "is_infrastructure": false
+        }
+    ]
+}

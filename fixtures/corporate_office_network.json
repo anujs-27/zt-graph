@@ -1,0 +1,534 @@
+{
+  "zones": [
+    {
+      "id": "Guest_WiFi",
+      "cidr": "192.168.100.0/24",
+      "clearance": "Public",
+      "compartments": [],
+      "is_proxy": false
+    },
+    {
+      "id": "Lobby_Kiosks",
+      "cidr": "192.168.101.0/24",
+      "clearance": "Public",
+      "compartments": [],
+      "is_proxy": false
+    },
+    {
+      "id": "Printer_IoT",
+      "cidr": "10.99.0.0/24",
+      "clearance": "Public",
+      "compartments": [],
+      "is_proxy": false
+    },
+    {
+      "id": "Eng_Workstations",
+      "cidr": "10.10.0.0/22",
+      "clearance": "Restricted",
+      "compartments": ["Engineering"],
+      "is_proxy": false
+    },
+    {
+      "id": "HR_Workstations",
+      "cidr": "10.10.4.0/24",
+      "clearance": "Restricted",
+      "compartments": ["HR"],
+      "is_proxy": false
+    },
+    {
+      "id": "Finance_Workstations",
+      "cidr": "10.10.5.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Finance"],
+      "is_proxy": false
+    },
+    {
+      "id": "IT_Operations",
+      "cidr": "10.10.6.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "VPN_Landing",
+      "cidr": "10.20.0.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Engineering", "HR", "Finance"],
+      "is_proxy": false
+    },
+    {
+      "id": "DMZ_Reverse_Proxy",
+      "cidr": "172.16.0.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Engineering", "HR", "Finance", "Operations"],
+      "is_proxy": true
+    },
+    {
+      "id": "Mail_Gateway",
+      "cidr": "172.16.1.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Engineering", "HR", "Finance", "Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "Active_Directory",
+      "cidr": "10.254.0.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Engineering", "HR", "Finance", "Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "Core_DNS_DHCP",
+      "cidr": "10.254.1.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Engineering", "HR", "Finance", "Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "Core_Firewall",
+      "cidr": "10.254.2.0/24",
+      "clearance": "Restricted",
+      "compartments": ["Engineering", "HR", "Finance", "Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "Exec_Suite",
+      "cidr": "10.10.7.0/24",
+      "clearance": "Confidential",
+      "compartments": ["Finance", "Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "Prod_Database",
+      "cidr": "10.30.0.0/24",
+      "clearance": "Confidential",
+      "compartments": ["Engineering"],
+      "is_proxy": false
+    },
+    {
+      "id": "HR_Database",
+      "cidr": "10.30.1.0/24",
+      "clearance": "Confidential",
+      "compartments": ["HR"],
+      "is_proxy": false
+    },
+    {
+      "id": "Finance_ERP",
+      "cidr": "10.30.2.0/24",
+      "clearance": "Confidential",
+      "compartments": ["Finance"],
+      "is_proxy": false
+    },
+    {
+      "id": "CI_CD_Pipeline",
+      "cidr": "10.40.0.0/24",
+      "clearance": "Confidential",
+      "compartments": ["Engineering", "Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "SOC_SIEM",
+      "cidr": "10.50.0.0/24",
+      "clearance": "Confidential",
+      "compartments": ["Operations"],
+      "is_proxy": false
+    },
+    {
+      "id": "Backup_NAS",
+      "cidr": "10.60.0.0/24",
+      "clearance": "Confidential",
+      "compartments": ["Engineering", "HR", "Finance", "Operations"],
+      "is_proxy": false
+    }
+  ],
+  "edges": [
+
+    {
+      "from": "Guest_WiFi",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Guest_WiFi",
+      "to": "Core_Firewall",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Lobby_Kiosks",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Lobby_Kiosks",
+      "to": "Core_Firewall",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Printer_IoT",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "Active_Directory",
+      "port": 389,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "Core_Firewall",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "HR_Workstations",
+      "to": "Active_Directory",
+      "port": 389,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "HR_Workstations",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "HR_Workstations",
+      "to": "Core_Firewall",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Finance_Workstations",
+      "to": "Active_Directory",
+      "port": 389,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Finance_Workstations",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Finance_Workstations",
+      "to": "Core_Firewall",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "IT_Operations",
+      "to": "Active_Directory",
+      "port": 389,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "IT_Operations",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "IT_Operations",
+      "to": "Core_Firewall",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Core_DNS_DHCP",
+      "to": "Active_Directory",
+      "port": 389,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Active_Directory",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Core_Firewall",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 443,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "Core_Firewall",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+
+    {
+      "from": "Guest_WiFi",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 20,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Lobby_Kiosks",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 10,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 50,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "Prod_Database",
+      "port": 5432,
+      "capacity": 30,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "CI_CD_Pipeline",
+      "port": 443,
+      "capacity": 40,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "Mail_Gateway",
+      "port": 587,
+      "capacity": 25,
+      "is_infrastructure": false
+    },
+    {
+      "from": "HR_Workstations",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 30,
+      "is_infrastructure": false
+    },
+    {
+      "from": "HR_Workstations",
+      "to": "HR_Database",
+      "port": 5432,
+      "capacity": 20,
+      "is_infrastructure": false
+    },
+    {
+      "from": "HR_Workstations",
+      "to": "Mail_Gateway",
+      "port": 587,
+      "capacity": 20,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Finance_Workstations",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 30,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Finance_Workstations",
+      "to": "Finance_ERP",
+      "port": 1433,
+      "capacity": 25,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Finance_Workstations",
+      "to": "Mail_Gateway",
+      "port": 587,
+      "capacity": 20,
+      "is_infrastructure": false
+    },
+    {
+      "from": "IT_Operations",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 40,
+      "is_infrastructure": false
+    },
+    {
+      "from": "IT_Operations",
+      "to": "SOC_SIEM",
+      "port": 443,
+      "capacity": 25,
+      "is_infrastructure": false
+    },
+    {
+      "from": "IT_Operations",
+      "to": "CI_CD_Pipeline",
+      "port": 22,
+      "capacity": 20,
+      "is_infrastructure": false
+    },
+    {
+      "from": "IT_Operations",
+      "to": "Mail_Gateway",
+      "port": 587,
+      "capacity": 20,
+      "is_infrastructure": false
+    },
+    {
+      "from": "VPN_Landing",
+      "to": "DMZ_Reverse_Proxy",
+      "port": 8080,
+      "capacity": 30,
+      "is_infrastructure": false
+    },
+    {
+      "from": "VPN_Landing",
+      "to": "Core_DNS_DHCP",
+      "port": 53,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "VPN_Landing",
+      "to": "Active_Directory",
+      "port": 389,
+      "capacity": 18446744073709551615,
+      "is_infrastructure": true
+    },
+    {
+      "from": "DMZ_Reverse_Proxy",
+      "to": "Mail_Gateway",
+      "port": 25,
+      "capacity": 50,
+      "is_infrastructure": false
+    },
+    {
+      "from": "CI_CD_Pipeline",
+      "to": "Prod_Database",
+      "port": 5432,
+      "capacity": 25,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Prod_Database",
+      "to": "Backup_NAS",
+      "port": 873,
+      "capacity": 15,
+      "is_infrastructure": false
+    },
+    {
+      "from": "HR_Database",
+      "to": "Backup_NAS",
+      "port": 873,
+      "capacity": 15,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Finance_ERP",
+      "to": "Backup_NAS",
+      "port": 873,
+      "capacity": 15,
+      "is_infrastructure": false
+    },
+    {
+      "from": "SOC_SIEM",
+      "to": "Backup_NAS",
+      "port": 873,
+      "capacity": 10,
+      "is_infrastructure": false
+    },
+
+    {
+      "from": "Printer_IoT",
+      "to": "Eng_Workstations",
+      "port": 9100,
+      "capacity": 5,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Printer_IoT",
+      "to": "HR_Workstations",
+      "port": 9100,
+      "capacity": 5,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Printer_IoT",
+      "to": "Finance_Workstations",
+      "port": 9100,
+      "capacity": 5,
+      "is_infrastructure": false
+    },
+    {
+      "from": "VPN_Landing",
+      "to": "Eng_Workstations",
+      "port": 22,
+      "capacity": 15,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Eng_Workstations",
+      "to": "HR_Workstations",
+      "port": 445,
+      "capacity": 3,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Mail_Gateway",
+      "to": "Exec_Suite",
+      "port": 993,
+      "capacity": 10,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Exec_Suite",
+      "to": "Finance_ERP",
+      "port": 1433,
+      "capacity": 5,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Lobby_Kiosks",
+      "to": "Printer_IoT",
+      "port": 631,
+      "capacity": 8,
+      "is_infrastructure": false
+    },
+    {
+      "from": "Guest_WiFi",
+      "to": "Printer_IoT",
+      "port": 631,
+      "capacity": 8,
+      "is_infrastructure": false
+    }
+  ]
+}

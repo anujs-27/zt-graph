@@ -1,0 +1,41 @@
+{
+    "zones": [
+        {
+            "id": "Source",
+            "cidr": "10.3.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Mid",
+            "cidr": "10.3.1.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Target",
+            "cidr": "10.3.2.0/24",
+            "clearance": "Confidential",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "Source",
+            "to": "Mid",
+            "port": 443,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Mid",
+            "to": "Target",
+            "port": 5432,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        }
+    ]
+}

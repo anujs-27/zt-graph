@@ -1,0 +1,62 @@
+{
+    "zones": [
+        {
+            "id": "Source",
+            "cidr": "10.20.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Path1",
+            "cidr": "10.20.1.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Path2",
+            "cidr": "10.20.2.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Target",
+            "cidr": "10.20.3.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "Source",
+            "to": "Path1",
+            "port": 1001,
+            "capacity": 12000000000000000000,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Path1",
+            "to": "Target",
+            "port": 1002,
+            "capacity": 12000000000000000000,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Source",
+            "to": "Path2",
+            "port": 2001,
+            "capacity": 12000000000000000000,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Path2",
+            "to": "Target",
+            "port": 2002,
+            "capacity": 12000000000000000000,
+            "is_infrastructure": false
+        }
+    ]
+}
