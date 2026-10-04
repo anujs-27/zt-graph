@@ -142,3 +142,146 @@ pub fn audit_unmediated_flow(topo: &TopologyGraph) -> Vec<(usize, usize)> {
 
     violating_edges
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::graph::topology::SecurityZone;
+    use crate::lattice::labels::{Clearance, SecurityLabel};
+    use ipnet::IpNet;
+    use std::collections::BTreeSet;
+
+    #[test]
+    fn test_warshall_algorithm() {
+        let adj_matrix: Vec<Vec<bool>> = vec![
+            vec![false, true, false],  // A -> B
+            vec![false, false, true],  // B -> C
+            vec![false, false, false], // C has no outgoing edges
+        ];
+
+        let closure: ReachabilityMatrix =
+            ReachabilityMatrix::compute_transitive_closure(&adj_matrix);
+
+        assert!(closure.get(0, 1), "A should directly reach B");
+        assert!(closure.get(1, 2), "B should directly reach C");
+        assert!(closure.get(0, 2), "A should transitively reach C via B");
+        assert!(!closure.get(2, 0), "C should not reach A (acyclic check)");
+    }
+
+    #[test]
+    fn test_audit_lattice_reachability() {
+        let mut topo = TopologyGraph::new();
+        let cidr: IpNet = "10.0.0.0/24".parse().unwrap();
+
+        // Zone 0: Confidential
+        topo.add_zone(SecurityZone::new(
+            "ZoneA".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Confidential, BTreeSet::new()),
+            false,
+        ))
+        .unwrap();
+
+        // Zone 1: Public
+        topo.add_zone(SecurityZone::new(
+            "ZoneB".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Public, BTreeSet::new()),
+            false,
+        ))
+        .unwrap();
+
+        let mut adj = vec![vec![false; 2]; 2];
+        adj[0][1] = true;
+
+        let closure = ReachabilityMatrix::compute_transitive_closure(&adj);
+        let violations = audit_lattice_reachability(&closure, &topo);
+
+        assert_eq!(violations.len(), 1, "Should detect 1 unauthorized flow");
+        assert_eq!(
+            violations[0],
+            (0, 1),
+            "Flow from Confidential to Public should be flagged"
+        );
+    }
+
+    #[test]
+    fn test_audit_unmediated_flow() {
+        let mut topo = TopologyGraph::new();
+        let cidr: IpNet = "10.0.0.0/24".parse().unwrap();
+
+        // Zone 0: Public
+        topo.add_zone(SecurityZone::new(
+            "ZoneA".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Public, BTreeSet::new()),
+            false,
+        ))
+        .unwrap();
+
+        // Zone 1: Confidential (Skipping Restricted)
+        topo.add_zone(SecurityZone::new(
+            "ZoneB".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Confidential, BTreeSet::new()),
+            false,
+        ))
+        .unwrap();
+
+        // Connect A directly to B (No proxy mediation)
+        topo.add_initiation_edge(0, 1, 80, 100, false).unwrap();
+
+        let violations = audit_unmediated_flow(&topo);
+
+        assert_eq!(violations.len(), 1, "Should detect 1 unmediated leap");
+        assert_eq!(
+            violations[0],
+            (0, 1),
+            "Public -> Confidential without proxy should be flagged"
+        );
+    }
+
+    #[test]
+    fn test_proxy_stop_condition_edge_case() {
+        let mut topo = TopologyGraph::new();
+        let cidr: IpNet = "10.0.0.0/24".parse().unwrap();
+
+        // Zone 0: Public
+        topo.add_zone(SecurityZone::new(
+            "ZoneA".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Public, BTreeSet::new()),
+            false,
+        ))
+        .unwrap();
+
+        // Zone 1: Restricted PROXY
+        topo.add_zone(SecurityZone::new(
+            "ZoneB-Proxy".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Restricted, BTreeSet::new()),
+            true, // is_proxy = true
+        ))
+        .unwrap();
+
+        // Zone 2: Confidential
+        topo.add_zone(SecurityZone::new(
+            "ZoneC".to_string(),
+            cidr.clone(),
+            SecurityLabel::new(Clearance::Confidential, BTreeSet::new()),
+            false,
+        ))
+        .unwrap();
+
+        // Connect A -> Proxy -> C
+        topo.add_initiation_edge(0, 1, 80, 100, false).unwrap();
+        topo.add_initiation_edge(1, 2, 80, 100, false).unwrap();
+
+        let violations = audit_unmediated_flow(&topo);
+
+        assert!(
+            violations.is_empty(),
+            "Proxy mediated the flow, so there should be no violations"
+        );
+    }
+}

@@ -190,3 +190,85 @@ impl FlowNetwork {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_compute_min_cut_valid() {
+        let mut net = FlowNetwork::new(3);
+        net.add_edge(0, 1, 10, Some((0, 0)));
+        net.add_edge(1, 2, 5, Some((1, 0))); // Bottleneck
+
+        let cut = net.compute_min_cut(0, 2).unwrap();
+        assert_eq!(cut.total_capacity, 5);
+        assert_eq!(cut.cut_edges, vec![(1, 0)]);
+    }
+
+    #[test]
+    fn test_compute_min_cut_parallel_paths() {
+        let mut net = FlowNetwork::new(4);
+        // S (0) -> A (1) -> T (3) [capacity 10, bottleneck 10]
+        net.add_edge(0, 1, 10, Some((0, 0)));
+        net.add_edge(1, 3, 20, Some((1, 0)));
+        // S (0) -> B (2) -> T (3) [capacity 5, bottleneck 5]
+        net.add_edge(0, 2, 5, Some((0, 1)));
+        net.add_edge(2, 3, 10, Some((2, 0)));
+
+        let cut = net.compute_min_cut(0, 3).unwrap();
+        assert_eq!(cut.total_capacity, 15);
+        assert_eq!(cut.cut_edges.len(), 2);
+    }
+
+    #[test]
+    fn test_compute_min_cut_with_cycles() {
+        let mut net = FlowNetwork::new(4);
+        net.add_edge(0, 1, 10, Some((0, 0))); // S -> A
+        net.add_edge(1, 2, 10, Some((1, 0))); // A -> B
+        net.add_edge(2, 1, 10, Some((2, 0))); // B -> A (Cycle)
+        net.add_edge(2, 3, 5, Some((2, 1))); // B -> T (Bottleneck)
+
+        let cut = net.compute_min_cut(0, 3).unwrap();
+        assert_eq!(cut.total_capacity, 5);
+        assert_eq!(cut.cut_edges, vec![(2, 1)]);
+    }
+
+    #[test]
+    fn test_compute_min_cut_disconnected() {
+        let mut net = FlowNetwork::new(4);
+        net.add_edge(0, 1, 10, Some((0, 0))); // S -> A
+        net.add_edge(2, 3, 10, Some((2, 0))); // B -> T (No path from S to T)
+
+        let cut = net.compute_min_cut(0, 3).unwrap();
+        assert_eq!(cut.total_capacity, 0);
+        assert!(cut.cut_edges.is_empty());
+    }
+
+    #[test]
+    fn test_compute_min_cut_errors() {
+        let mut net = FlowNetwork::new(2);
+
+        // Identical nodes
+        assert!(matches!(
+            net.compute_min_cut(0, 0),
+            Err(ArchitecturalInvariantBreach::Message(_))
+        ));
+        // Out of bounds
+        assert!(matches!(
+            net.compute_min_cut(0, 5),
+            Err(ArchitecturalInvariantBreach::Message(_))
+        ));
+    }
+
+    #[test]
+    fn test_compute_min_cut_invariant_breach() {
+        let mut net = FlowNetwork::new(2);
+        net.add_edge(0, 1, u64::MAX, Some((0, 0))); // Infrastructure edge
+
+        assert!(matches!(
+            net.compute_min_cut(0, 1),
+            Err(ArchitecturalInvariantBreach::Message(_))
+        ));
+    }
+}
