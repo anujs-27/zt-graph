@@ -1,0 +1,24 @@
+name: "ZT-Graph CI"
+
+on:
+    push:
+        branches: ["main"]
+    
+jobs:
+    test-suite:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "checkout code"
+              uses: actions/checkout@v4
+
+            - name: "install rust stable"
+              uses: dtolnay/rust-toolchain@stable
+            
+            - name: "enforce formatting"
+              run:  "cargo fmt --all -- --check"
+            
+            - name: "linting"
+              run: "cargo clippy --all-targets --all-features -- -D warnings"
+
+            - name: "run tests"
+              run: "cargo test --verbose"
