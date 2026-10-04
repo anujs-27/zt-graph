@@ -38,6 +38,7 @@ impl ReachabilityMatrix {
         self.get(u, v)
     }
 
+    #[allow(clippy::needless_range_loop)]
     pub fn compute_transitive_closure(adjacency_matrix: &[Vec<bool>]) -> Self {
         let size = adjacency_matrix.len();
         let mut matrix = ReachabilityMatrix::new(size);
@@ -176,7 +177,7 @@ mod tests {
         // Zone 0: Confidential
         topo.add_zone(SecurityZone::new(
             "ZoneA".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Confidential, BTreeSet::new()),
             false,
         ))
@@ -185,7 +186,7 @@ mod tests {
         // Zone 1: Public
         topo.add_zone(SecurityZone::new(
             "ZoneB".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Public, BTreeSet::new()),
             false,
         ))
@@ -213,7 +214,7 @@ mod tests {
         // Zone 0: Public
         topo.add_zone(SecurityZone::new(
             "ZoneA".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Public, BTreeSet::new()),
             false,
         ))
@@ -222,7 +223,7 @@ mod tests {
         // Zone 1: Confidential (Skipping Restricted)
         topo.add_zone(SecurityZone::new(
             "ZoneB".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Confidential, BTreeSet::new()),
             false,
         ))
@@ -249,7 +250,7 @@ mod tests {
         // Zone 0: Public
         topo.add_zone(SecurityZone::new(
             "ZoneA".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Public, BTreeSet::new()),
             false,
         ))
@@ -258,7 +259,7 @@ mod tests {
         // Zone 1: Restricted PROXY
         topo.add_zone(SecurityZone::new(
             "ZoneB-Proxy".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Restricted, BTreeSet::new()),
             true, // is_proxy = true
         ))
@@ -267,7 +268,7 @@ mod tests {
         // Zone 2: Confidential
         topo.add_zone(SecurityZone::new(
             "ZoneC".to_string(),
-            cidr.clone(),
+            cidr,
             SecurityLabel::new(Clearance::Confidential, BTreeSet::new()),
             false,
         ))

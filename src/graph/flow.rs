@@ -1,7 +1,4 @@
 use crate::graph::topology::TopologyGraph;
-use std::usize;
-
-pub const INF_CAPACITY: u64 = u64::MAX;
 
 pub struct FlowEdge {
     pub to: usize,
@@ -73,7 +70,7 @@ impl FlowNetwork {
         for (from_idx, edges) in topo.adjacency.iter().enumerate() {
             for (edge_idx, edge) in edges.iter().enumerate() {
                 let cap = if edge.is_infrastructure {
-                    INF_CAPACITY
+                    u64::MAX
                 } else {
                     edge.capacity
                 };

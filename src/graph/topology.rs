@@ -20,7 +20,7 @@ pub struct InitiationEdge {
     pub is_infrastructure: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct TopologyGraph {
     pub zones: Vec<SecurityZone>,
     pub node_index_map: HashMap<String, usize>,

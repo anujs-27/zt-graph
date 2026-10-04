@@ -164,21 +164,19 @@ impl FlowNetwork {
         for u in 0..self.adj.len() {
             if visited[u] {
                 for edge in &self.adj[u] {
-                    if !visited[edge.to] {
-                        if edge.original_flow_index.is_some() {
-                            // Check architectural invariants for cut boundaries
-                            if edge.capacity == u64::MAX {
-                                return Err(ArchitecturalInvariantBreach::Message(format!(
-                                    "Invariant breach: cut crosses infinite capacity edge from {} to {}",
-                                    u, edge.to
-                                )));
-                            }
-                            if let Some(orig_idx) = edge.original_flow_index {
-                                cut_edges.push(orig_idx);
-                            }
-
-                            total_capacity = total_capacity.saturating_add(edge.capacity);
+                    if !visited[edge.to] && edge.original_flow_index.is_some() {
+                        // Check architectural invariants for cut boundaries
+                        if edge.capacity == u64::MAX {
+                            return Err(ArchitecturalInvariantBreach::Message(format!(
+                                "Invariant breach: cut crosses infinite capacity edge from {} to {}",
+                                u, edge.to
+                            )));
                         }
+                        if let Some(orig_idx) = edge.original_flow_index {
+                            cut_edges.push(orig_idx);
+                        }
+
+                        total_capacity = total_capacity.saturating_add(edge.capacity);
                     }
                 }
             }

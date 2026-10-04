@@ -105,7 +105,7 @@ fn audit_mode(config: PathBuf) {
     }
 }
 
-fn isolate_mode(config: &PathBuf, source: String, target: String) {
+fn isolate_mode(config: &std::path::Path, source: String, target: String) {
     let topology: TopologyGraph = match load_topology_from_json(config) {
         Ok(topo) => topo,
         Err(err) => {
