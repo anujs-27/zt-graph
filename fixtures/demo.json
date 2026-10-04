@@ -1,0 +1,64 @@
+{
+    "zones": [
+        {
+            "id": "Public_WiFi",
+            "cidr": "10.0.0.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        },
+        {
+            "id": "Security_Gateway",
+            "cidr": "10.0.1.0/24",
+            "clearance": "Restricted",
+            "compartments": [],
+            "is_proxy": true
+        },
+        {
+            "id": "Internal_DB",
+            "cidr": "10.0.2.0/24",
+            "clearance": "Confidential",
+            "compartments": [
+                "Engineering"
+            ],
+            "is_proxy": false
+        },
+        {
+            "id": "Partner_Extranet",
+            "cidr": "10.0.3.0/24",
+            "clearance": "Public",
+            "compartments": [],
+            "is_proxy": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "Public_WiFi",
+            "to": "Security_Gateway",
+            "port": 443,
+            "capacity": 50,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Security_Gateway",
+            "to": "Internal_DB",
+            "port": 5432,
+            "capacity": 18446744073709551615,
+            "is_infrastructure": true
+        },
+        {
+            "from": "Public_WiFi",
+            "to": "Internal_DB",
+            "port": 5432,
+            "capacity": 10,
+            "is_infrastructure": false
+        },
+        {
+            "from": "Internal_DB",
+            "to": "Partner_Extranet",
+            "port": 8080,
+            "capacity": 5,
+            "is_infrastructure": false
+        }
+    ]
+}
